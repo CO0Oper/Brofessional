@@ -10,7 +10,7 @@ Professionals writing posts, replies, and workplace messages who want a fast tra
 
 ## Core task
 
-The user writes a thought, chooses the direction of translation, and receives a concise rewrite they can copy and refine through conversation.
+The user writes a thought and receives a concise LinkedIn-style rewrite they can copy and refine through conversation.
 
 ## Platform
 
@@ -29,4 +29,3 @@ Web. The static client is hosted on GitHub Pages. A Cloudflare Worker keeps the 
 ## Brand commitments
 
 The interface borrows the attached reference's two-panel translator rhythm, generous black framing, direct humor, and practical copy-first interaction.
-

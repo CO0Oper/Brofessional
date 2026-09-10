@@ -9,22 +9,20 @@ const el = {
   count: document.querySelector("#character-count"),
   send: document.querySelector("#send-button"),
   copy: document.querySelector("#copy-button"),
-  swap: document.querySelector("#swap-button"),
   clear: document.querySelector("#clear-button"),
   outputLabel: document.querySelector("#output-label"),
   followupForm: document.querySelector("#followup-form"),
   followup: document.querySelector("#followup"),
 };
 
-let direction = "to-linkedin";
 let history = [];
 
 function renderHistory() {
-  el.output.replaceChildren(...history.map(({ role, content }) => {
+  el.output.replaceChildren(...history.filter(({ role }) => role === "assistant").map(({ content }) => {
     const turn = document.createElement("div");
-    turn.className = `turn ${role}`;
+    turn.className = "turn assistant";
     const label = document.createElement("span");
-    label.textContent = role === "user" ? "You" : el.outputLabel.textContent;
+    label.textContent = el.outputLabel.textContent;
     const text = document.createElement("p");
     text.textContent = content;
     turn.append(label, text);
@@ -69,13 +67,14 @@ async function translate(message = el.message.value.trim()) {
     const response = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message, direction, history }),
+      body: JSON.stringify({ message, history: history.slice(-8) }),
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.error || "Translation failed.");
     history.push({ role: "user", content: message }, { role: "assistant", content: data.reply });
     renderHistory();
-    el.status.textContent = "Translation ready. Refine it below or copy the result.";
+    const remaining = response.headers.get("X-RateLimit-Remaining");
+    el.status.textContent = `Translation ready.${remaining === null ? "" : ` ${remaining} of 20 messages left.`}`;
   } catch (error) {
     el.status.textContent = error.message === "Failed to fetch"
       ? "The translator is not connected yet. Check the deployment configuration."
@@ -87,7 +86,7 @@ async function translate(message = el.message.value.trim()) {
 }
 
 el.message.addEventListener("input", () => {
-  el.count.textContent = `${el.message.value.length.toLocaleString()} / 2,000`;
+  el.count.textContent = `${el.message.value.length.toLocaleString()} / 1,000`;
 });
 
 el.message.addEventListener("keydown", (event) => {
@@ -95,20 +94,6 @@ el.message.addEventListener("keydown", (event) => {
 });
 
 el.send.addEventListener("click", () => translate());
-
-el.swap.addEventListener("click", () => {
-  direction = direction === "to-linkedin" ? "from-linkedin" : "to-linkedin";
-  const decoding = direction === "from-linkedin";
-  el.swap.setAttribute("aria-pressed", String(decoding));
-  document.querySelector('label[for="message"]').textContent = decoding ? "LinkedIn Speak" : "Plain English";
-  el.outputLabel.textContent = decoding ? "Plain English" : "LinkedIn Speak";
-  el.message.placeholder = decoding
-    ? "I’m excited to announce that I’m embarking on a new chapter…"
-    : "My colleague keeps scheduling meetings that should have been emails…";
-  resetOutput();
-  history = [];
-  el.message.focus();
-});
 
 el.copy.addEventListener("click", async () => {
   const latest = history.findLast(({ role }) => role === "assistant");
@@ -120,7 +105,7 @@ el.copy.addEventListener("click", async () => {
 el.clear.addEventListener("click", () => {
   el.message.value = "";
   history = [];
-  el.count.textContent = "0 / 2,000";
+  el.count.textContent = "0 / 1,000";
   resetOutput();
   el.message.focus();
 });

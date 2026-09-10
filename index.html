@@ -6,7 +6,7 @@
     <meta name="description" content="Turn direct thoughts into polished LinkedIn language." />
     <meta name="theme-color" content="#0a66c2" />
     <title>Plainly — LinkedIn speak, translated</title>
-    <link rel="stylesheet" href="styles.css?v=2" />
+    <link rel="stylesheet" href="styles.css?v=3" />
   </head>
   <body>
     <!--
@@ -14,7 +14,7 @@
       WORLD: Editorial translation desk — a black stage, two paper-white work surfaces; LinkedIn blue marks action and provenance.
       FIRST VIEWPORT: A compact proposition hands the viewport immediately to the working translator on desktop and mobile.
       VISITOR PATH: Write candidly, translate, read the paired turn, then refine through a compact follow-up composer.
-      SIGNATURE INTERACTION: A blue signal crosses the center rail as the direction marker flips and the destination resolves.
+      SIGNATURE INTERACTION: A blue signal crosses the center rail as the destination resolves.
       CROSS-SURFACE: Paper, ink, restrained blue, direct copy, and paired turns govern empty, loading, error, and history states.
       HONEST RISK: Familiar translator geometry can feel utilitarian; editorial type scale and the live rail carry distinctiveness.
       MOTION: One center-rail transfer; all other state changes remain quiet.
@@ -34,16 +34,16 @@
     <main>
       <section class="intro" aria-labelledby="page-title">
         <h1 id="page-title">Say what you mean. <span>Sound like you meant to post it.</span></h1>
-        <p>Turn honest thoughts into polished professional language—or decode the corporate poetry back into plain English.</p>
+        <p>Turn honest thoughts into polished professional language.</p>
       </section>
 
       <section class="translator" aria-label="LinkedIn language translator">
         <article class="panel input-panel">
           <div class="panel-heading">
-            <label for="message">Plain English</label>
-            <span id="character-count">0 / 2,000</span>
+            <label class="sr-only" for="message">Text to translate</label>
+            <span id="character-count">0 / 1,000</span>
           </div>
-          <textarea id="message" maxlength="2000" placeholder="My colleague keeps scheduling meetings that should have been emails…" autofocus></textarea>
+          <textarea id="message" maxlength="1000" placeholder="My colleague keeps scheduling meetings that should have been emails…" autofocus></textarea>
           <div class="examples" aria-label="Example prompts">
             <button type="button" data-prompt="I have no idea what this meeting is about, but I am happy to be here.">Meeting</button>
             <button type="button" data-prompt="I quit because the job was draining me.">Career update</button>
@@ -57,10 +57,6 @@
             </button>
           </div>
         </article>
-
-        <button class="swap-button" id="swap-button" type="button" aria-label="Switch translation direction" aria-pressed="false">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h11l-3-3m3 3-3 3M17 17H6l3 3m-3-3 3-3" /></svg>
-        </button>
 
         <article class="panel output-panel" aria-live="polite" aria-busy="false">
           <div class="panel-heading">
@@ -95,6 +91,6 @@
       <p>Not affiliated with LinkedIn.</p>
     </footer>
 
-    <script src="app.js?v=2"></script>
+    <script src="app.js?v=3"></script>
   </body>
 </html>
