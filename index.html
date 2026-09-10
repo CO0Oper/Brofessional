@@ -6,7 +6,7 @@
     <meta name="description" content="Turn direct thoughts into polished LinkedIn language." />
     <meta name="theme-color" content="#0a66c2" />
     <title>Plainly — LinkedIn speak, translated</title>
-    <link rel="stylesheet" href="styles.css?v=4" />
+    <link rel="stylesheet" href="styles.css?v=5" />
   </head>
   <body>
     <!--
@@ -51,10 +51,19 @@
           </div>
           <div class="panel-footer">
             <p><kbd>Ctrl</kbd> <span>+</span> <kbd>Enter</kbd> to translate</p>
-            <button class="primary-button" id="send-button" type="button">
-              <span>Translate</span>
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 14-7-4 14-3-6-7-1Z" /></svg>
-            </button>
+            <div class="translate-actions">
+              <button class="primary-button" id="send-button" type="button">
+                <span>Translate</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 14-7-4 14-3-6-7-1Z" /></svg>
+              </button>
+              <div class="tone-picker" id="tone-picker" role="group" aria-labelledby="tone-label" hidden>
+                <span class="tone-label" id="tone-label">Tone</span>
+                <div class="tone-options">
+                  <label><input type="radio" name="tone" value="normal" checked /><span>Normal</span></label>
+                  <label><input type="radio" name="tone" value="real" /><span>Real meaning</span></label>
+                </div>
+              </div>
+            </div>
           </div>
         </article>
 
@@ -111,6 +120,6 @@
       <p>Not affiliated with LinkedIn.</p>
     </footer>
 
-    <script src="app.js?v=5"></script>
+    <script src="app.js?v=6"></script>
   </body>
 </html>

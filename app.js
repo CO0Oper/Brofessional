@@ -10,6 +10,8 @@ const el = {
   count: document.querySelector("#character-count"),
   examples: document.querySelector(".examples"),
   send: document.querySelector("#send-button"),
+  tonePicker: document.querySelector("#tone-picker"),
+  toneInputs: [...document.querySelectorAll('input[name="tone"]')],
   swap: document.querySelector("#swap-button"),
   copy: document.querySelector("#copy-button"),
   clear: document.querySelector("#clear-button"),
@@ -25,6 +27,17 @@ const el = {
 
 let direction = "to-linkedin";
 let turns = [];
+
+function selectedTone() {
+  return el.toneInputs.find((input) => input.checked).value;
+}
+
+function syncTone() {
+  const realMeaning = direction === "from-linkedin" && selectedTone() === "real";
+  if (realMeaning) el.targetLanguage.value = "English";
+  el.targetLanguage.disabled = realMeaning;
+  el.targetLanguage.title = realMeaning ? "Real meaning is written in English" : "";
+}
 
 function renderHistoryList() {
   el.historyList.replaceChildren(...turns.slice().reverse().map((item) => {
@@ -63,8 +76,10 @@ function renderHistory() {
 }
 
 function resetOutput(keepHistory = false) {
-  const destination = direction === "to-linkedin" ? "professionally polished" : "natural-language";
-  el.output.innerHTML = `<div class="empty-state"><span class="quote-mark" aria-hidden="true">“</span><p>Your ${destination} translation will appear here.</p></div>`;
+  const destination = direction === "to-linkedin"
+    ? "professionally polished translation"
+    : selectedTone() === "real" ? "blunt interpretation" : "natural-language translation";
+  el.output.innerHTML = `<div class="empty-state"><span class="quote-mark" aria-hidden="true">“</span><p>Your ${destination} will appear here.</p></div>`;
   el.copy.disabled = true;
   el.followupForm.hidden = true;
   el.history.open = false;
@@ -78,12 +93,15 @@ function setLoading(loading) {
   el.send.disabled = loading;
   el.swap.disabled = loading;
   el.message.disabled = loading;
-  el.targetLanguage.disabled = loading;
+  el.targetLanguage.disabled = loading || selectedTone() === "real";
+  el.toneInputs.forEach((input) => { input.disabled = loading; });
   el.followup.disabled = loading;
   el.followupForm.querySelector("button").disabled = loading;
   el.outputPanel.setAttribute("aria-busy", String(loading));
   el.send.querySelector("span").textContent = loading ? "Translating…" : "Translate";
-  if (loading) el.status.textContent = "Finding the professionally aligned version…";
+  if (loading) el.status.textContent = direction === "to-linkedin"
+    ? "Finding the professionally aligned version…"
+    : selectedTone() === "real" ? "Reading between the lines…" : "Translating into natural language…";
   el.translator.classList.toggle("transferring", loading);
 }
 
@@ -95,6 +113,7 @@ async function translate(message = el.message.value.trim()) {
     return;
   }
 
+  const tone = direction === "from-linkedin" ? selectedTone() : "normal";
   setLoading(true);
   el.status.className = "status";
 
@@ -105,8 +124,9 @@ async function translate(message = el.message.value.trim()) {
       body: JSON.stringify({
         message,
         direction,
+        tone,
         targetLanguage: direction === "from-linkedin" ? el.targetLanguage.value : undefined,
-        history: turns.filter((turn) => turn.direction === direction).slice(-4).flatMap((turn) => [
+        history: turns.filter((turn) => turn.direction === direction && turn.tone === tone).slice(-4).flatMap((turn) => [
           { role: "user", content: turn.original },
           { role: "assistant", content: turn.translation },
         ]),
@@ -116,10 +136,13 @@ async function translate(message = el.message.value.trim()) {
     if (!response.ok) throw new Error(data.error || "Translation failed.");
     turns.push({
       direction,
+      tone,
       original: message,
       translation: data.reply,
       inputLabel: el.inputLabel.textContent,
-      outputLabel: direction === "to-linkedin" ? "LinkedIn Speak" : el.targetLanguage.selectedOptions[0].textContent,
+      outputLabel: direction === "to-linkedin"
+        ? "LinkedIn Speak"
+        : tone === "real" ? "Real meaning" : el.targetLanguage.selectedOptions[0].textContent,
     });
     renderHistory();
     const remaining = response.headers.get("X-RateLimit-Remaining");
@@ -156,14 +179,21 @@ el.swap.addEventListener("click", () => {
   el.outputLabel.textContent = direction === "to-linkedin" ? "LinkedIn Speak" : "Natural language";
   el.outputLabel.hidden = direction === "from-linkedin";
   el.targetLanguage.hidden = direction === "to-linkedin";
+  el.tonePicker.hidden = direction === "to-linkedin";
   el.examples.hidden = direction === "from-linkedin";
   el.message.placeholder = direction === "to-linkedin"
     ? "My colleague keeps scheduling meetings that should have been emails…"
     : "I’m grateful for the opportunity to embrace a new chapter…";
   el.swap.classList.toggle("reversed", direction === "from-linkedin");
+  syncTone();
   resetOutput(true);
   el.message.focus();
 });
+
+el.toneInputs.forEach((input) => input.addEventListener("change", () => {
+  syncTone();
+  resetOutput(true);
+}));
 
 el.copy.addEventListener("click", async () => {
   await navigator.clipboard.writeText(turns.at(-1)?.translation || "");

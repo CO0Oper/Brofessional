@@ -4,16 +4,25 @@ const MESSAGE_LIMIT = 1000;
 const DAILY_LIMIT = 20;
 const DAY = 86_400;
 const TARGET_LANGUAGES = new Set(["English", "Simplified Chinese", "Traditional Chinese", "Spanish", "French", "German", "Japanese", "Korean", "Portuguese"]);
+const REAL_MEANING_TASK = `You are a LinkedIn Speak interpreter. People post carefully laundered corporate language; your job is to say what they actually meant. Translate the post into blunt, plain English — the version they'd say to a friend at the bar after two drinks. Rules:
+- Find the real event under the euphemism. "Excited to announce a new chapter" = they got fired or rage-quit. "Grateful for colleagues with diverse working styles" = a coworker is an idiot. "Learnings" = it went badly.
+- Be funny, and be specific about it. The humour comes from naming the exact thing they dodged, not from generic snark or insulting the poster.
+- Deadpan. Don't wink at the reader, don't explain the joke, don't add commentary like "translation:" or "what they really mean is".
+- Swearing is fine where it's what a person would actually say. Don't force it.
+- One or two sentences, max 30 words. No emoji, no hashtags, no preamble.
+Output ONLY the blunt version.`;
 
-export function translationTask(direction, targetLanguage) {
-  return direction === "to-linkedin" ? `You are a translation engine for "LinkedIn Speak" — the dialect of corporate-professional English spoken on LinkedIn.
+export function translationTask(direction, targetLanguage, tone = "normal") {
+  if (direction === "to-linkedin") return `You are a translation engine for "LinkedIn Speak" — the dialect of corporate-professional English spoken on LinkedIn.
 Translate the user's message (raw, blunt, often vulgar, usually Chinese) into LinkedIn Speak. Rules:
 - Always output in English, whatever language the input is in.
 - Preserve the actual meaning. A fluent reader must be able to decode what really happened.
 - Never repeat the profanity or the hostility. Reframe conflict as alignment, failure as growth, quitting as a new chapter, exhaustion as commitment.
 - Warm, upbeat, slightly humblebragging. Gratitude, journeys, learnings, excitement.
 - 1-3 sentences. No hashtags, no emoji, no preamble.
-Output ONLY the translation.` : `You are a translation engine that decodes "LinkedIn Speak" into direct, natural ${targetLanguage}.
+Output ONLY the translation.`;
+  if (tone === "real") return REAL_MEANING_TASK;
+  return `You are a translation engine that decodes "LinkedIn Speak" into direct, natural ${targetLanguage}.
 Preserve the actual meaning, including conflict, failure, quitting, or exhaustion that the corporate phrasing may soften.
 Write plainly and naturally in ${targetLanguage}. Use 1-3 sentences with no hashtags, emoji, preamble, commentary, or quotation marks.
 Output ONLY the translation.`;
@@ -58,7 +67,7 @@ export default {
     if (!env.OPENROUTER_API_KEY) return Response.json({ error: "Translator is not configured." }, { status: 503, headers });
 
     try {
-      const { message, history = [], direction = "to-linkedin", targetLanguage = "English" } = await request.json();
+      const { message, history = [], direction = "to-linkedin", targetLanguage = "English", tone = "normal" } = await request.json();
       if (typeof message !== "string" || !message.trim() || message.length > MESSAGE_LIMIT) {
         return Response.json({ error: `Message must be between 1 and ${MESSAGE_LIMIT.toLocaleString()} characters.` }, { status: 400, headers });
       }
@@ -66,7 +75,8 @@ export default {
         !["user", "assistant"].includes(item?.role) || typeof item.content !== "string" || item.content.length > 2000)) {
         return Response.json({ error: "Conversation history is invalid." }, { status: 400, headers });
       }
-      if (!["to-linkedin", "from-linkedin"].includes(direction) || !TARGET_LANGUAGES.has(targetLanguage)) {
+      if (!["to-linkedin", "from-linkedin"].includes(direction) || !TARGET_LANGUAGES.has(targetLanguage) ||
+        !["normal", "real"].includes(tone) || (tone === "real" && (direction !== "from-linkedin" || targetLanguage !== "English"))) {
         return Response.json({ error: "Translation settings are invalid." }, { status: 400, headers });
       }
 
@@ -84,7 +94,7 @@ export default {
         });
       }
 
-      const task = translationTask(direction, targetLanguage);
+      const task = translationTask(direction, targetLanguage, tone);
 
       const response = await fetch(OPENROUTER_URL, {
         method: "POST",

@@ -10,7 +10,7 @@ Professionals writing posts, replies, and workplace messages who want a fast tra
 
 ## Core task
 
-The user can turn auto-detected natural language into concise LinkedIn-style English, or decode LinkedIn Speak into a chosen natural language. They can copy, refine, and revisit paired translations in a collapsed history.
+The user can turn auto-detected natural language into concise LinkedIn-style English, or decode LinkedIn Speak with either a plain translation in a chosen language or a blunt, humorous English interpretation. They can copy, refine, and revisit paired translations in a collapsed history.
 
 ## Platform
 

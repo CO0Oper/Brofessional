@@ -169,7 +169,7 @@ main {
 
 textarea {
   width: 100%;
-  min-height: 230px;
+  min-height: 190px;
   flex: 1;
   resize: none;
   padding: 24px;
@@ -211,9 +211,15 @@ textarea::placeholder { color: #60676d; opacity: 1; }
 .panel-footer p { margin: 0; color: var(--muted); font-size: 0.74rem; }
 kbd { padding: 2px 5px; border: 1px solid #c8cbd0; border-bottom-width: 2px; border-radius: 4px; background: white; }
 
+.translate-actions {
+  margin-left: auto;
+  display: grid;
+  justify-items: end;
+  gap: 8px;
+}
+
 .primary-button {
   min-height: 46px;
-  margin-left: auto;
   padding: 0 17px 0 20px;
   display: inline-flex;
   align-items: center;
@@ -228,6 +234,18 @@ kbd { padding: 2px 5px; border: 1px solid #c8cbd0; border-bottom-width: 2px; bor
 .primary-button:hover { background: var(--blue-dark); }
 .primary-button:disabled { color: #d8dadd; background: #7f858a; }
 .primary-button svg { width: 18px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+.tone-picker { display: flex; align-items: center; gap: 8px; }
+.tone-picker[hidden] { display: none; }
+.tone-label { color: var(--muted); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+.tone-options { display: flex; overflow: hidden; border: 1px solid #b7bbc0; border-radius: 999px; background: white; }
+.tone-options label { position: relative; cursor: pointer; }
+.tone-options label + label { border-left: 1px solid #b7bbc0; }
+.tone-options input { position: absolute; opacity: 0; pointer-events: none; }
+.tone-options span { min-height: 34px; padding: 0 11px; display: grid; place-items: center; color: #4a5055; font-size: 0.72rem; font-weight: 700; }
+.tone-options input:checked + span { color: var(--blue-dark); background: var(--blue-soft); }
+.tone-options input:focus-visible + span { outline: 3px solid #70b5f9; outline-offset: -3px; }
+.tone-options input:disabled + span { color: #9fa4a8; cursor: not-allowed; }
 
 .swap-button {
   position: absolute;
@@ -394,6 +412,7 @@ footer p { margin: 0; }
   .swap-button { top: 50%; }
   .translator.transferring::after { animation-name: transfer-mobile; }
   .panel-footer p { display: none; }
+  .translate-actions { width: 100%; }
   footer { gap: 20px; }
 }
 
