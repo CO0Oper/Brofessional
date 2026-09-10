@@ -1,0 +1,10 @@
+{
+  "name": "plainly-linkedin-speak",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check app.js && node --check worker/index.js && node worker/index.test.js",
+    "worker:dev": "npx wrangler@4.15.2 dev --config worker/wrangler.toml",
+    "worker:deploy": "npx wrangler@4.15.2 deploy --config worker/wrangler.toml"
+  }
+}
