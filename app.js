@@ -139,7 +139,7 @@ async function translate(message = el.message.value.trim()) {
       translation: data.reply,
       inputLabel: el.inputLabel.textContent,
       outputLabel: direction === "to-linkedin"
-        ? "LinkedIn Speak"
+        ? "Brofessionalize"
         : tone === "real" ? "Real meaning" : el.targetLanguage.selectedOptions[0].textContent,
     });
     renderHistory();
@@ -173,8 +173,8 @@ el.swap.addEventListener("click", () => {
     el.message.value = latest.translation.slice(0, MESSAGE_LIMIT);
     el.message.dispatchEvent(new Event("input"));
   }
-  el.inputLabel.textContent = direction === "to-linkedin" ? "Detect language" : "LinkedIn Speak";
-  el.outputLabel.textContent = direction === "to-linkedin" ? "LinkedIn Speak" : "Natural language";
+  el.inputLabel.textContent = direction === "to-linkedin" ? "Detect language" : "Brofessionalize";
+  el.outputLabel.textContent = direction === "to-linkedin" ? "Brofessionalize" : "Natural language";
   el.outputLabel.hidden = direction === "from-linkedin";
   el.languagePicker.hidden = direction === "to-linkedin";
   el.tonePicker.hidden = direction === "to-linkedin";
