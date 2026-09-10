@@ -6,7 +6,7 @@
     <meta name="description" content="Turn direct thoughts into polished LinkedIn language." />
     <meta name="theme-color" content="#0a66c2" />
     <title>Plainly — LinkedIn speak, translated</title>
-    <link rel="stylesheet" href="styles.css?v=3" />
+    <link rel="stylesheet" href="styles.css?v=4" />
   </head>
   <body>
     <!--
@@ -34,13 +34,13 @@
     <main>
       <section class="intro" aria-labelledby="page-title">
         <h1 id="page-title">Say what you mean. <span>Sound like you meant to post it.</span></h1>
-        <p>Turn honest thoughts into polished professional language.</p>
+        <p>Move between honest language and polished professional language.</p>
       </section>
 
       <section class="translator" aria-label="LinkedIn language translator">
         <article class="panel input-panel">
           <div class="panel-heading">
-            <label class="sr-only" for="message">Text to translate</label>
+            <label id="input-label" for="message">Detect language</label>
             <span id="character-count">0 / 1,000</span>
           </div>
           <textarea id="message" maxlength="1000" placeholder="My colleague keeps scheduling meetings that should have been emails…" autofocus></textarea>
@@ -58,9 +58,25 @@
           </div>
         </article>
 
+        <button class="swap-button" id="swap-button" type="button" aria-label="Reverse translation direction" title="Reverse translation direction">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m7 7 3-3m-3 3 3 3M7 7h10M17 17l-3 3m3-3-3-3m3 3H7" /></svg>
+        </button>
+
         <article class="panel output-panel" aria-live="polite" aria-busy="false">
           <div class="panel-heading">
             <span id="output-label">LinkedIn Speak</span>
+            <label class="sr-only" for="target-language">Translate into</label>
+            <select id="target-language" hidden>
+              <option value="English">English</option>
+              <option value="Simplified Chinese">简体中文</option>
+              <option value="Traditional Chinese">繁體中文</option>
+              <option value="Spanish">Español</option>
+              <option value="French">Français</option>
+              <option value="German">Deutsch</option>
+              <option value="Japanese">日本語</option>
+              <option value="Korean">한국어</option>
+              <option value="Portuguese">Português</option>
+            </select>
             <button class="copy-button" id="copy-button" type="button" disabled>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8h11v11H8zM5 16H4V5h11v1" /></svg>
               <span>Copy</span>
@@ -72,6 +88,10 @@
               <p>Your professionally polished translation will appear here.</p>
             </div>
           </div>
+          <details class="history" id="history" hidden>
+            <summary><span>History</span><span id="history-count">0</span></summary>
+            <div class="history-list" id="history-list"></div>
+          </details>
           <form class="followup" id="followup-form" hidden>
             <label class="sr-only" for="followup">Refine the translation</label>
             <input id="followup" maxlength="500" placeholder="Make it shorter, warmer, or more direct…" />
@@ -91,6 +111,6 @@
       <p>Not affiliated with LinkedIn.</p>
     </footer>
 
-    <script src="app.js?v=4"></script>
+    <script src="app.js?v=5"></script>
   </body>
 </html>

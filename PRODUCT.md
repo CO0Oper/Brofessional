@@ -2,7 +2,7 @@
 
 ## Product
 
-Plainly is a web chat for people who want to turn direct thoughts into polished, professional LinkedIn language without losing the original meaning.
+Plainly is a web chat for people who want to move between direct thoughts and polished, professional LinkedIn language without losing the original meaning.
 
 ## Audience
 
@@ -10,7 +10,7 @@ Professionals writing posts, replies, and workplace messages who want a fast tra
 
 ## Core task
 
-The user writes a thought and receives a concise LinkedIn-style rewrite they can copy and refine through conversation.
+The user can turn auto-detected natural language into concise LinkedIn-style English, or decode LinkedIn Speak into a chosen natural language. They can copy, refine, and revisit paired translations in a collapsed history.
 
 ## Platform
 

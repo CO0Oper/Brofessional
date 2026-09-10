@@ -1,6 +1,6 @@
 # Plainly
 
-A tiny translator from candid language to LinkedIn-style professional prose, powered by `deepseek/deepseek-chat-v3.1` through OpenRouter.
+A tiny two-way translator between auto-detected natural language and LinkedIn-style professional prose, powered by `deepseek/deepseek-chat-v3.1` through OpenRouter. Reverse the direction to decode LinkedIn Speak into a chosen language; paired translations stay available in a collapsed history.
 
 **[Open the live app](https://co0oper.github.io/linkedin-speak-chat/)**
 

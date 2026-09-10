@@ -8,43 +8,77 @@ const el = {
   output: document.querySelector("#output"),
   status: document.querySelector("#status"),
   count: document.querySelector("#character-count"),
+  examples: document.querySelector(".examples"),
   send: document.querySelector("#send-button"),
+  swap: document.querySelector("#swap-button"),
   copy: document.querySelector("#copy-button"),
   clear: document.querySelector("#clear-button"),
   outputLabel: document.querySelector("#output-label"),
+  inputLabel: document.querySelector("#input-label"),
+  targetLanguage: document.querySelector("#target-language"),
+  history: document.querySelector("#history"),
+  historyList: document.querySelector("#history-list"),
+  historyCount: document.querySelector("#history-count"),
   followupForm: document.querySelector("#followup-form"),
   followup: document.querySelector("#followup"),
 };
 
-let history = [];
+let direction = "to-linkedin";
+let turns = [];
 
-function renderHistory() {
-  el.output.replaceChildren(...history.filter(({ role }) => role === "assistant").map(({ content }) => {
-    const turn = document.createElement("div");
-    turn.className = "turn assistant";
-    const label = document.createElement("span");
-    label.textContent = el.outputLabel.textContent;
-    const text = document.createElement("p");
-    text.textContent = content;
-    turn.append(label, text);
-    return turn;
+function renderHistoryList() {
+  el.historyList.replaceChildren(...turns.slice().reverse().map((item) => {
+    const pair = document.createElement("div");
+    pair.className = "history-pair";
+    const sourceLabel = document.createElement("span");
+    sourceLabel.textContent = item.inputLabel;
+    const source = document.createElement("p");
+    source.textContent = item.original;
+    const resultLabel = document.createElement("span");
+    resultLabel.textContent = item.outputLabel;
+    const result = document.createElement("p");
+    result.textContent = item.translation;
+    pair.append(sourceLabel, source, resultLabel, result);
+    return pair;
   }));
-  el.copy.disabled = !history.some(({ role }) => role === "assistant");
-  el.followupForm.hidden = !history.length;
-  el.output.scrollTop = el.output.scrollHeight;
+  el.history.hidden = !turns.length;
+  el.historyCount.textContent = turns.length;
 }
 
-function resetOutput() {
-  el.output.innerHTML = '<div class="empty-state"><span class="quote-mark" aria-hidden="true">“</span><p>Your professionally polished translation will appear here.</p></div>';
+function renderHistory() {
+  const latest = turns.at(-1);
+  if (!latest) return resetOutput();
+
+  const turn = document.createElement("div");
+  turn.className = "turn assistant";
+  const label = document.createElement("span");
+  label.textContent = latest.outputLabel;
+  const text = document.createElement("p");
+  text.textContent = latest.translation;
+  turn.append(label, text);
+  el.output.replaceChildren(turn);
+  renderHistoryList();
+  el.copy.disabled = false;
+  el.followupForm.hidden = false;
+}
+
+function resetOutput(keepHistory = false) {
+  const destination = direction === "to-linkedin" ? "professionally polished" : "natural-language";
+  el.output.innerHTML = `<div class="empty-state"><span class="quote-mark" aria-hidden="true">“</span><p>Your ${destination} translation will appear here.</p></div>`;
   el.copy.disabled = true;
   el.followupForm.hidden = true;
+  el.history.open = false;
+  if (keepHistory) renderHistoryList();
+  else el.history.hidden = true;
   el.status.textContent = "";
   el.status.className = "status";
 }
 
 function setLoading(loading) {
   el.send.disabled = loading;
+  el.swap.disabled = loading;
   el.message.disabled = loading;
+  el.targetLanguage.disabled = loading;
   el.followup.disabled = loading;
   el.followupForm.querySelector("button").disabled = loading;
   el.outputPanel.setAttribute("aria-busy", String(loading));
@@ -68,11 +102,25 @@ async function translate(message = el.message.value.trim()) {
     const response = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message, history: history.slice(-8) }),
+      body: JSON.stringify({
+        message,
+        direction,
+        targetLanguage: direction === "from-linkedin" ? el.targetLanguage.value : undefined,
+        history: turns.filter((turn) => turn.direction === direction).slice(-4).flatMap((turn) => [
+          { role: "user", content: turn.original },
+          { role: "assistant", content: turn.translation },
+        ]),
+      }),
     });
     const data = await response.json();
     if (!response.ok) throw new Error(data.error || "Translation failed.");
-    history.push({ role: "user", content: message }, { role: "assistant", content: data.reply });
+    turns.push({
+      direction,
+      original: message,
+      translation: data.reply,
+      inputLabel: el.inputLabel.textContent,
+      outputLabel: direction === "to-linkedin" ? "LinkedIn Speak" : el.targetLanguage.selectedOptions[0].textContent,
+    });
     renderHistory();
     const remaining = response.headers.get("X-RateLimit-Remaining");
     el.status.textContent = `Translation ready.${remaining === null ? "" : ` ${remaining} of 20 messages left.`}`;
@@ -97,16 +145,35 @@ el.message.addEventListener("keydown", (event) => {
 
 el.send.addEventListener("click", () => translate());
 
+el.swap.addEventListener("click", () => {
+  direction = direction === "to-linkedin" ? "from-linkedin" : "to-linkedin";
+  const latest = turns.at(-1);
+  if (latest) {
+    el.message.value = latest.translation.slice(0, MESSAGE_LIMIT);
+    el.message.dispatchEvent(new Event("input"));
+  }
+  el.inputLabel.textContent = direction === "to-linkedin" ? "Detect language" : "LinkedIn Speak";
+  el.outputLabel.textContent = direction === "to-linkedin" ? "LinkedIn Speak" : "Natural language";
+  el.outputLabel.hidden = direction === "from-linkedin";
+  el.targetLanguage.hidden = direction === "to-linkedin";
+  el.examples.hidden = direction === "from-linkedin";
+  el.message.placeholder = direction === "to-linkedin"
+    ? "My colleague keeps scheduling meetings that should have been emails…"
+    : "I’m grateful for the opportunity to embrace a new chapter…";
+  el.swap.classList.toggle("reversed", direction === "from-linkedin");
+  resetOutput(true);
+  el.message.focus();
+});
+
 el.copy.addEventListener("click", async () => {
-  const latest = history.findLast(({ role }) => role === "assistant");
-  await navigator.clipboard.writeText(latest?.content || "");
+  await navigator.clipboard.writeText(turns.at(-1)?.translation || "");
   el.copy.querySelector("span").textContent = "Copied";
   setTimeout(() => { el.copy.querySelector("span").textContent = "Copy"; }, 1400);
 });
 
 el.clear.addEventListener("click", () => {
   el.message.value = "";
-  history = [];
+  turns = [];
   el.count.textContent = `0 / ${MESSAGE_LIMIT.toLocaleString()}`;
   resetOutput();
   el.message.focus();

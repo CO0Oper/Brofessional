@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import worker, { rateLimit } from "./index.js";
+import worker, { rateLimit, translationTask } from "./index.js";
 
 const values = new Map();
 const env = {
@@ -43,6 +43,16 @@ const badHistory = await worker.fetch(new Request("https://worker.test", {
 }), env);
 
 assert.equal(badHistory.status, 400);
+
+const badDirection = await worker.fetch(new Request("https://worker.test", {
+  method: "POST",
+  headers: { Origin: "https://example.com", "Content-Type": "application/json" },
+  body: JSON.stringify({ message: "hello", direction: "sideways", targetLanguage: "Klingon" }),
+}), env);
+
+assert.equal(badDirection.status, 400);
+assert.match(translationTask("to-linkedin", "English"), /Always output in English/);
+assert.match(translationTask("from-linkedin", "Simplified Chinese"), /natural Simplified Chinese/);
 
 const request = new Request("https://worker.test", { headers: { "CF-Connecting-IP": "192.0.2.1" } });
 for (let count = 0; count < 20; count += 1) {

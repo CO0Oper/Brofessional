@@ -3,6 +3,21 @@ const MODEL = "deepseek/deepseek-chat-v3.1";
 const MESSAGE_LIMIT = 1000;
 const DAILY_LIMIT = 20;
 const DAY = 86_400;
+const TARGET_LANGUAGES = new Set(["English", "Simplified Chinese", "Traditional Chinese", "Spanish", "French", "German", "Japanese", "Korean", "Portuguese"]);
+
+export function translationTask(direction, targetLanguage) {
+  return direction === "to-linkedin" ? `You are a translation engine for "LinkedIn Speak" — the dialect of corporate-professional English spoken on LinkedIn.
+Translate the user's message (raw, blunt, often vulgar, usually Chinese) into LinkedIn Speak. Rules:
+- Always output in English, whatever language the input is in.
+- Preserve the actual meaning. A fluent reader must be able to decode what really happened.
+- Never repeat the profanity or the hostility. Reframe conflict as alignment, failure as growth, quitting as a new chapter, exhaustion as commitment.
+- Warm, upbeat, slightly humblebragging. Gratitude, journeys, learnings, excitement.
+- 1-3 sentences. No hashtags, no emoji, no preamble.
+Output ONLY the translation.` : `You are a translation engine that decodes "LinkedIn Speak" into direct, natural ${targetLanguage}.
+Preserve the actual meaning, including conflict, failure, quitting, or exhaustion that the corporate phrasing may soften.
+Write plainly and naturally in ${targetLanguage}. Use 1-3 sentences with no hashtags, emoji, preamble, commentary, or quotation marks.
+Output ONLY the translation.`;
+}
 
 function cors(origin, allowedOrigin) {
   return {
@@ -43,13 +58,16 @@ export default {
     if (!env.OPENROUTER_API_KEY) return Response.json({ error: "Translator is not configured." }, { status: 503, headers });
 
     try {
-      const { message, history = [] } = await request.json();
+      const { message, history = [], direction = "to-linkedin", targetLanguage = "English" } = await request.json();
       if (typeof message !== "string" || !message.trim() || message.length > MESSAGE_LIMIT) {
         return Response.json({ error: `Message must be between 1 and ${MESSAGE_LIMIT.toLocaleString()} characters.` }, { status: 400, headers });
       }
       if (!Array.isArray(history) || history.length > 8 || history.some((item) =>
         !["user", "assistant"].includes(item?.role) || typeof item.content !== "string" || item.content.length > 2000)) {
         return Response.json({ error: "Conversation history is invalid." }, { status: 400, headers });
+      }
+      if (!["to-linkedin", "from-linkedin"].includes(direction) || !TARGET_LANGUAGES.has(targetLanguage)) {
+        return Response.json({ error: "Translation settings are invalid." }, { status: 400, headers });
       }
 
       if (!env.RATE_LIMITS) return Response.json({ error: "Rate limiter is not configured." }, { status: 503, headers });
@@ -66,14 +84,7 @@ export default {
         });
       }
 
-      const task = `You are a translation engine for "LinkedIn Speak" — the dialect of corporate-professional English spoken on LinkedIn.
-Translate the user's message (raw, blunt, often vulgar, usually Chinese) into LinkedIn Speak. Rules:
-- Always output in English, whatever language the input is in.
-- Preserve the actual meaning. A fluent reader must be able to decode what really happened.
-- Never repeat the profanity or the hostility. Reframe conflict as alignment, failure as growth, quitting as a new chapter, exhaustion as commitment.
-- Warm, upbeat, slightly humblebragging. Gratitude, journeys, learnings, excitement.
-- 1-3 sentences. No hashtags, no emoji, no preamble.
-Output ONLY the translation.`;
+      const task = translationTask(direction, targetLanguage);
 
       const response = await fetch(OPENROUTER_URL, {
         method: "POST",
