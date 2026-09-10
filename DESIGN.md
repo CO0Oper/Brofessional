@@ -1,19 +1,19 @@
 ---
 name: Brofessional
-description: An editorial two-panel translation desk framed in black, paper, and restrained LinkedIn blue.
+description: An editorial translation desk with two open work zones divided by one quiet rule and accented with restrained LinkedIn blue.
 colors:
   ink: "#101214"
   muted-ink: "#686f76"
-  stage: "#07090a"
-  paper: "#f8f7f4"
-  divider: "#d8dadd"
+  stage: "#edf3f8"
+  paper: "#ffffff"
+  divider: "#d3dce3"
   action-blue: "#0a66c2"
   action-blue-deep: "#004182"
   action-blue-soft: "#e8f3ff"
   focus-blue: "#70b5f9"
   danger: "#b42318"
   success: "#44a67c"
-  stage-muted: "#a9afb5"
+  stage-muted: "#5f6b76"
   disabled: "#7f858a"
   white: "#ffffff"
 typography:
@@ -95,13 +95,13 @@ components:
 
 **Creative North Star: "Editorial Translation Desk"**
 
-Brofessional feels like a focused editorial workstation set on a dark stage. Two warm paper surfaces hold the work, while restrained LinkedIn blue identifies action, direction, and provenance. The composition borrows the familiar rhythm of a two-panel translator without borrowing its anonymity: assertive editorial type and a live center rail give the utility a point of view.
+Brofessional feels like a focused editorial workstation set on a pale LinkedIn-tinted canvas. Two open work zones share that canvas, while one quiet rule establishes direction and restrained LinkedIn blue identifies action and provenance. The composition borrows the familiar rhythm of a two-panel translator without borrowing its anonymity: assertive editorial type and a live center rail give the utility a point of view.
 
-The system is copy-first, direct, and lightly humorous, but never decorative at the expense of the task. Generous black framing creates focus; compact utility controls stay quiet until needed. The visual identity references LinkedIn through color only and must never imply affiliation.
+The system is copy-first, direct, and lightly humorous, but never decorative at the expense of the task. A quiet blue-gray frame creates focus; compact utility controls stay quiet until needed. The visual identity references LinkedIn through color only and must never imply affiliation.
 
 **Key Characteristics:**
 
-- Black stage with paired paper work surfaces.
+- Pale blue-gray stage with two open work zones and a single dividing rule.
 - One restrained blue accent for action, direction, and provenance.
 - Editorial display typography over compact, legible utility type.
 - Familiar translator geometry sharpened by a central transfer signal.
@@ -119,11 +119,11 @@ The palette is ink-and-paper neutral at its core, with a single professional blu
 
 ### Neutral
 
-- **Black Stage:** The page canvas and the visual frame around the working surfaces.
-- **Warm Paper:** The writing and reading surfaces where content carries the focus.
+- **Light Stage:** The pale blue-gray page canvas and visual frame around the working surfaces.
+- **White Paper:** The writing and reading surfaces where content carries the focus.
 - **Editorial Ink:** Primary text on paper.
 - **Muted Utility Ink:** Counts, hints, status text, and supporting labels on paper.
-- **Stage Muted:** Secondary text and quiet controls on the black stage.
+- **Stage Muted:** Secondary text and quiet controls on the light stage.
 - **Divider Gray:** Rules and disabled foregrounds that organize without competing.
 - **Disabled Gray:** Inactive control fill and the lowest-emphasis stage text.
 - **White:** High-contrast text on blue and the bridge control's surface.
@@ -138,7 +138,7 @@ The palette is ink-and-paper neutral at its core, with a single professional blu
 
 **The Blue Has a Job Rule.** Blue must signal action, direction, selection, or provenance; it does not become a decorative field.
 
-**The Paper on Stage Rule.** Long-form input and output belong on warm paper, while the surrounding frame remains nearly black.
+**The Open Canvas Rule.** Long-form input and output share one quiet blue-gray canvas; a single rule, not separate containers, distinguishes direction.
 
 ## Typography
 
@@ -164,21 +164,20 @@ The palette is ink-and-paper neutral at its core, with a single professional blu
 
 ## Layout
 
-The desktop shell is centered and capped at 1180px with a 40px total side inset. The working area is a two-column grid with equal panels and a 14px rail between them. The central direction control bridges that rail rather than occupying a third column.
+The desktop shell is centered and capped at 1120px with a 32px total side inset. A compact 64px brand bar hands the remaining viewport directly to a two-column grid with equal panels and a 14px rail between them. The central direction control bridges that rail rather than occupying a third column.
 
-The page uses a compact proposition followed immediately by the working translator. Paper panels maintain a minimum working height of 430px, with stable heading and footer bands around flexible writing space. On mobile, natural-to-LinkedIn translation uses a source-light 35/65 split; reversing direction changes to a source-heavy 55/45 split because LinkedIn posts tend to be longer. Long text remains internally scrollable. Panel content uses a 24px inset, and adjacent controls use compact 8–18px gaps.
+The translator is the page: promotional copy, examples, shortcut hints, trust copy, and footer messaging do not compete with the task. Stable heading and footer bands frame flexible writing space inside a one-viewport shell. On mobile, natural-to-LinkedIn translation uses a source-light 35/65 split; reversing direction changes to a source-heavy 55/45 split because LinkedIn posts tend to be longer. Long text remains internally scrollable. Panel content uses a 24px desktop inset and a 14px mobile inset.
 
-At the 760px breakpoint, the equal columns become a single vertical stack locked to the dynamic viewport, the shell contracts to a 24px total side inset, and the center transfer signal rotates from horizontal travel to vertical travel. The promotional intro, examples, privacy note, and footer recede so the brand bar and complete translation task fit without page scrolling; long copy scrolls inside its own pane. Safe-area insets protect notches and home indicators, touch targets remain at least 44px, and short coarse-pointer landscape screens return to two columns.
+At the 900px breakpoint, the equal columns become a single vertical stack locked to the dynamic viewport, the shell contracts to a 24px total side inset, and the center transfer signal rotates from horizontal travel to vertical travel. Safe-area insets protect notches and home indicators, touch targets remain at least 44px, and genuinely landscape short screens return to two columns. Shortened visual viewports can compress the source pane while preserving both action rows.
 
 **The Paired Before Stacked Rule.** Preserve the source-and-destination relationship side by side whenever the viewport can support it; stack in the same reading order on narrow screens.
 
 ## Elevation & Depth
 
-Depth is structural, not ornamental. The two paper panels lift decisively above the black stage, while the center swap control receives a tighter shadow so it reads as the physical hinge between them. Most controls remain flat and gain emphasis through color rather than elevation.
+Depth is structural, not ornamental. The two work zones stay flat and continuous, while the center swap control receives a tighter shadow so it reads as the physical hinge between them. Most controls remain flat and gain emphasis through color rather than elevation.
 
 ### Shadow Vocabulary
 
-- **Paper Lift** (`0 22px 50px rgba(0, 0, 0, 0.28)`): The shared ambient shadow for the two primary paper surfaces.
 - **Bridge Lift** (`0 8px 22px rgba(0, 0, 0, 0.25)`): A smaller structural shadow for the circular control crossing the panel rail.
 - **Status Halo** (`0 0 0 4px rgba(68, 166, 124, 0.13)`): A compact semantic halo around the trust-status dot.
 
@@ -188,7 +187,7 @@ Depth is structural, not ornamental. The two paper panels lift decisively above 
 
 ## Shapes
 
-The form language combines softly rounded paper sheets with capsule controls. Panels use a generous but not playful radius, primary and inline send actions are fully pill-shaped, and icon-only actions become true circles. Small square marks and utility actions use tighter corners. One-pixel neutral rules provide most internal structure.
+The form language combines an open editorial canvas with capsule controls. Primary and inline send actions are fully pill-shaped, and icon-only actions become true circles. Small square marks and utility actions use tighter corners. One neutral rule separates the two translation zones.
 
 **The Soft Utility Rule.** Large surfaces use gentle corners, compact actions use pills or circles, and no component introduces ornamental geometry unrelated to its function.
 
@@ -199,7 +198,7 @@ The form language combines softly rounded paper sheets with capsule controls. Pa
 Buttons are confident in hierarchy and quiet in motion.
 
 - **Primary:** A white-on-blue pill with a 46px minimum height, asymmetric horizontal padding, bold labeling, and a small line icon. Hover deepens the blue; disabled state becomes neutral gray.
-- **Icon:** A transparent circular control on the dark stage. Hover adds a dark-neutral fill and brightens the icon.
+- **Icon:** A transparent circular control on the light stage. Hover adds the soft-blue action wash and deepens the icon.
 - **Copy / Utility:** A compact transparent action with deep-blue text. Hover introduces the soft-blue wash; disabled state mutes the label.
 - **Focus:** Every interactive control receives the shared 3px focus-blue outline with a 3px offset.
 
@@ -209,11 +208,11 @@ Example chips are compact outlined pills with a transparent resting surface. Hov
 
 ### Cards / Containers
 
-The canonical container is a warm-paper panel with editorial ink, a 14px corner radius, clipped contents, and Paper Lift. A 62px heading band and 72px footer band establish consistent structure with one-pixel divider rules; the center writing area flexes.
+The canonical workspace is one flat canvas split into two flexible zones by a single one-pixel rule. Each zone keeps a 62px heading band and a 64px action band without drawing additional frames around them.
 
 ### Inputs / Fields
 
-The primary editor is borderless and transparent within the paper panel, using large content type, generous inset, blue caret, and no resize handle. The target language uses a compact soft-blue native select pill with a drawn chevron and a 44px mobile touch target. Reverse-mode tone and Translate share one action row, with the secondary choice left and primary action right. Translation refinement stays out of flow behind a translucent floating pencil; activating it reveals the white pill composer as a temporary overlay. Placeholder text remains darker than generic disabled text so examples stay readable.
+The primary editor is borderless and transparent within the paper panel, using large content type, generous inset, blue caret, and no resize handle. The target language uses a compact soft-blue native select pill with a drawn chevron and a 44px mobile touch target. Reverse-mode tone and Translate share one action row, with the secondary choice left and primary action right. Translation refinement stays out of flow behind a translucent floating pencil; activating it reveals the white pill composer as a temporary overlay. Placeholder text remains darker than generic disabled text so its input cue stays readable.
 
 ### Navigation
 
@@ -231,7 +230,7 @@ The signature component is the equal source-and-destination panel pair bridged b
 
 ### Do:
 
-- **Do** preserve the black-stage, warm-paper, restrained-blue hierarchy across empty, loading, error, and history states.
+- **Do** preserve the light-stage, open-zone, restrained-blue hierarchy across empty, loading, error, and history states.
 - **Do** keep source and destination surfaces equal in visual weight and reading order.
 - **Do** use blue only when an element is actionable, directional, selected, or provenance-bearing.
 - **Do** preserve strong keyboard focus, readable placeholders, and the reduced-motion fallback.
@@ -241,6 +240,6 @@ The signature component is the equal source-and-destination panel pair bridged b
 
 - **Don't** imply a LinkedIn affiliation through logos, endorsement language, or copied brand assets; the relationship is limited to a familiar blue-and-neutral color cue.
 - **Don't** introduce additional decorative accent colors, gradients on paper, or shadows on every control.
-- **Don't** turn the two panels into unequal dashboard cards or separate the direction control from their shared rail.
+- **Don't** turn the two zones into dashboard cards or separate the direction control from their shared rail.
 - **Don't** add competing motion; the single transfer signal is the system's signature movement.
 - **Don't** let metadata, helper text, or example chips compete with the editable and translated content.

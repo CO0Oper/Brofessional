@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="description" content="Turn direct thoughts into polished LinkedIn language with Brofessional." />
-    <meta name="theme-color" content="#0a66c2" />
+    <meta name="theme-color" content="#edf3f8" />
     <title>Brofessional — LinkedIn speak, translated</title>
-    <link rel="stylesheet" href="styles.css?v=9" />
+    <link rel="stylesheet" href="styles.css?v=12" />
   </head>
   <body>
     <!--
       FORM SEED: user-pinned reference / linkedin-translator-2026-09-10 (the explicit brief overrides a concept roll).
-      WORLD: Editorial translation desk — a black stage, two paper-white work surfaces; LinkedIn blue marks action and provenance.
+      WORLD: Editorial translation desk — one pale blue-gray canvas split into two open work zones; LinkedIn blue marks action and provenance.
       FIRST VIEWPORT: A compact proposition hands the viewport immediately to the working translator on desktop and mobile.
       VISITOR PATH: Write candidly, translate, read the paired turn, then refine through a compact follow-up composer.
       SIGNATURE INTERACTION: A blue signal crosses the center rail as the destination resolves.
@@ -25,18 +25,12 @@
         <span class="brand-mark" aria-hidden="true">in</span>
         <span>Brofessional</span>
       </a>
-      <p>LinkedIn speak, translated.</p>
       <button class="icon-button" id="clear-button" type="button" aria-label="Clear conversation" title="Clear conversation">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M9 7V4h6v3m3 0-1 13H7L6 7m4 4v5m4-5v5" /></svg>
       </button>
     </header>
 
     <main>
-      <section class="intro" aria-labelledby="page-title">
-        <h1 id="page-title">Say what you mean. <span>Sound like you meant to post it.</span></h1>
-        <p>Move between honest language and polished professional language.</p>
-      </section>
-
       <section class="translator" aria-label="LinkedIn language translator">
         <article class="panel input-panel">
           <div class="panel-heading">
@@ -44,13 +38,7 @@
             <span id="character-count">0 / 1,000</span>
           </div>
           <textarea id="message" maxlength="1000" placeholder="My colleague keeps scheduling meetings that should have been emails…" autofocus></textarea>
-          <div class="examples" aria-label="Example prompts">
-            <button type="button" data-prompt="I have no idea what this meeting is about, but I am happy to be here.">Meeting</button>
-            <button type="button" data-prompt="I quit because the job was draining me.">Career update</button>
-            <button type="button" data-prompt="My colleague and I completely disagree.">Collaboration</button>
-          </div>
           <div class="panel-footer">
-            <p><kbd>Ctrl</kbd> <span>+</span> <kbd>Enter</kbd> to translate</p>
             <div class="translate-actions">
               <div class="tone-picker" id="tone-picker" role="group" aria-labelledby="tone-label" hidden>
                 <span class="tone-label" id="tone-label">Tone</span>
@@ -96,7 +84,6 @@
           </div>
           <div class="output" id="output">
             <div class="empty-state">
-              <span class="quote-mark" aria-hidden="true">“</span>
               <p>Your professionally polished translation will appear here.</p>
             </div>
           </div>
@@ -117,15 +104,8 @@
           <div class="status" id="status" role="status"></div>
         </article>
       </section>
-
-      <p class="privacy-note"><span aria-hidden="true"></span>Your key stays server-side. Your message is sent only when you press Translate.</p>
     </main>
 
-    <footer>
-      <p>Built for clearer work conversations.</p>
-      <p>Not affiliated with LinkedIn.</p>
-    </footer>
-
-    <script src="app.js?v=9"></script>
+    <script src="app.js?v=12"></script>
   </body>
 </html>

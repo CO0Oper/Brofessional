@@ -8,7 +8,6 @@ const el = {
   output: document.querySelector("#output"),
   status: document.querySelector("#status"),
   count: document.querySelector("#character-count"),
-  examples: document.querySelector(".examples"),
   send: document.querySelector("#send-button"),
   tonePicker: document.querySelector("#tone-picker"),
   toneInputs: [...document.querySelectorAll('input[name="tone"]')],
@@ -76,7 +75,7 @@ function resetOutput(keepHistory = false) {
   const destination = direction === "to-linkedin"
     ? "professionally polished translation"
     : selectedTone() === "real" ? "blunt interpretation" : "natural-language translation";
-  el.output.innerHTML = `<div class="empty-state"><span class="quote-mark" aria-hidden="true">“</span><p>Your ${destination} will appear here.</p></div>`;
+  el.output.innerHTML = `<div class="empty-state"><p>Your ${destination} will appear here.</p></div>`;
   el.copy.disabled = true;
   el.refineToggle.hidden = true;
   el.refineToggle.setAttribute("aria-expanded", "false");
@@ -179,7 +178,6 @@ el.swap.addEventListener("click", () => {
   el.outputLabel.hidden = direction === "from-linkedin";
   el.languagePicker.hidden = direction === "to-linkedin";
   el.tonePicker.hidden = direction === "to-linkedin";
-  el.examples.hidden = direction === "from-linkedin";
   el.message.placeholder = direction === "to-linkedin"
     ? "My colleague keeps scheduling meetings that should have been emails…"
     : "I’m grateful for the opportunity to embrace a new chapter…";
@@ -222,12 +220,4 @@ el.followupForm.addEventListener("submit", async (event) => {
   el.followupForm.hidden = true;
   el.refineToggle.setAttribute("aria-expanded", "false");
   await translate(request);
-});
-
-document.querySelectorAll("[data-prompt]").forEach((button) => {
-  button.addEventListener("click", () => {
-    el.message.value = button.dataset.prompt;
-    el.message.dispatchEvent(new Event("input"));
-    el.message.focus();
-  });
 });
