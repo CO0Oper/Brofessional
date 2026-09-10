@@ -1,4 +1,5 @@
 const API_URL = "https://plainly-linkedin-speak.developercoooper.workers.dev";
+const MESSAGE_LIMIT = 1000;
 
 const el = {
   translator: document.querySelector(".translator"),
@@ -86,7 +87,8 @@ async function translate(message = el.message.value.trim()) {
 }
 
 el.message.addEventListener("input", () => {
-  el.count.textContent = `${el.message.value.length.toLocaleString()} / 1,000`;
+  el.message.value = el.message.value.slice(0, MESSAGE_LIMIT);
+  el.count.textContent = `${el.message.value.length.toLocaleString()} / ${MESSAGE_LIMIT.toLocaleString()}`;
 });
 
 el.message.addEventListener("keydown", (event) => {
@@ -105,7 +107,7 @@ el.copy.addEventListener("click", async () => {
 el.clear.addEventListener("click", () => {
   el.message.value = "";
   history = [];
-  el.count.textContent = "0 / 1,000";
+  el.count.textContent = `0 / ${MESSAGE_LIMIT.toLocaleString()}`;
   resetOutput();
   el.message.focus();
 });
