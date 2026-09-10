@@ -1,5 +1,5 @@
 ---
-name: Plainly
+name: Brofessional
 description: An editorial two-panel translation desk framed in black, paper, and restrained LinkedIn blue.
 colors:
   ink: "#101214"
@@ -89,13 +89,13 @@ components:
     padding: "7px 10px"
 ---
 
-# Design System: Plainly
+# Design System: Brofessional
 
 ## Overview
 
 **Creative North Star: "Editorial Translation Desk"**
 
-Plainly feels like a focused editorial workstation set on a dark stage. Two warm paper surfaces hold the work, while restrained LinkedIn blue identifies action, direction, and provenance. The composition borrows the familiar rhythm of a two-panel translator without borrowing its anonymity: assertive editorial type and a live center rail give the utility a point of view.
+Brofessional feels like a focused editorial workstation set on a dark stage. Two warm paper surfaces hold the work, while restrained LinkedIn blue identifies action, direction, and provenance. The composition borrows the familiar rhythm of a two-panel translator without borrowing its anonymity: assertive editorial type and a live center rail give the utility a point of view.
 
 The system is copy-first, direct, and lightly humorous, but never decorative at the expense of the task. Generous black framing creates focus; compact utility controls stay quiet until needed. The visual identity references LinkedIn through color only and must never imply affiliation.
 
@@ -166,7 +166,7 @@ The palette is ink-and-paper neutral at its core, with a single professional blu
 
 The desktop shell is centered and capped at 1180px with a 40px total side inset. The working area is a two-column grid with equal panels and a 14px rail between them. The central direction control bridges that rail rather than occupying a third column.
 
-The page uses a compact proposition followed immediately by the working translator. Paper panels maintain a minimum working height of 430px, with stable heading and footer bands around flexible writing space. Panel content uses a 24px inset, and adjacent controls use compact 8–18px gaps.
+The page uses a compact proposition followed immediately by the working translator. Paper panels maintain a minimum working height of 430px, with stable heading and footer bands around flexible writing space. On mobile, the input/result split shifts to roughly 35/65 so short source text does not waste the viewport and long text remains internally scrollable. Panel content uses a 24px inset, and adjacent controls use compact 8–18px gaps.
 
 At the 760px breakpoint, the equal columns become a single vertical stack locked to the dynamic viewport, the shell contracts to a 24px total side inset, and the center transfer signal rotates from horizontal travel to vertical travel. The promotional intro, examples, privacy note, and footer recede so the brand bar and complete translation task fit without page scrolling; long copy scrolls inside its own pane. Safe-area insets protect notches and home indicators, touch targets remain at least 44px, and short coarse-pointer landscape screens return to two columns.
 

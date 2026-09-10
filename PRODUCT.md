@@ -1,8 +1,8 @@
-# Plainly
+# Brofessional
 
 ## Product
 
-Plainly is a web chat for people who want to move between direct thoughts and polished, professional LinkedIn language without losing the original meaning.
+Brofessional is a web chat for people who want to move between direct thoughts and polished, professional LinkedIn language without losing the original meaning.
 
 ## Audience
 

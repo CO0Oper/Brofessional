@@ -102,7 +102,7 @@ export default {
           Authorization: `Bearer ${env.OPENROUTER_API_KEY}`,
           "Content-Type": "application/json",
           "HTTP-Referer": env.FRONTEND_ORIGIN || "https://github.com",
-          "X-Title": "Plainly",
+          "X-Title": "Brofessional",
         },
         body: JSON.stringify({
           model: MODEL,
