@@ -22,6 +22,7 @@ const el = {
   history: document.querySelector("#history"),
   historyList: document.querySelector("#history-list"),
   historyCount: document.querySelector("#history-count"),
+  refineToggle: document.querySelector("#refine-toggle"),
   followupForm: document.querySelector("#followup-form"),
   followup: document.querySelector("#followup"),
 };
@@ -66,7 +67,9 @@ function renderHistory() {
   el.output.replaceChildren(turn);
   renderHistoryList();
   el.copy.disabled = false;
-  el.followupForm.hidden = false;
+  el.refineToggle.hidden = false;
+  el.refineToggle.setAttribute("aria-expanded", "false");
+  el.followupForm.hidden = true;
 }
 
 function resetOutput(keepHistory = false) {
@@ -75,6 +78,8 @@ function resetOutput(keepHistory = false) {
     : selectedTone() === "real" ? "blunt interpretation" : "natural-language translation";
   el.output.innerHTML = `<div class="empty-state"><span class="quote-mark" aria-hidden="true">“</span><p>Your ${destination} will appear here.</p></div>`;
   el.copy.disabled = true;
+  el.refineToggle.hidden = true;
+  el.refineToggle.setAttribute("aria-expanded", "false");
   el.followupForm.hidden = true;
   el.history.open = false;
   if (keepHistory) renderHistoryList();
@@ -202,11 +207,20 @@ el.clear.addEventListener("click", () => {
   el.message.focus();
 });
 
+el.refineToggle.addEventListener("click", () => {
+  const opening = el.followupForm.hidden;
+  el.followupForm.hidden = !opening;
+  el.refineToggle.setAttribute("aria-expanded", String(opening));
+  if (opening) el.followup.focus();
+});
+
 el.followupForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   const request = el.followup.value.trim();
   if (!request) return el.followup.focus();
   el.followup.value = "";
+  el.followupForm.hidden = true;
+  el.refineToggle.setAttribute("aria-expanded", "false");
   await translate(request);
 });
 

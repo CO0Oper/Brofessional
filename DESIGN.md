@@ -213,7 +213,7 @@ The canonical container is a warm-paper panel with editorial ink, a 14px corner 
 
 ### Inputs / Fields
 
-The primary editor is borderless and transparent within the paper panel, using large content type, generous inset, blue caret, and no resize handle. The target language uses a compact soft-blue native select pill with a drawn chevron and a 44px mobile touch target. The follow-up composer is a white pill with a one-pixel gray border and a circular blue send action. Placeholder text remains darker than generic disabled text so examples stay readable.
+The primary editor is borderless and transparent within the paper panel, using large content type, generous inset, blue caret, and no resize handle. The target language uses a compact soft-blue native select pill with a drawn chevron and a 44px mobile touch target. Reverse-mode tone and Translate share one action row, with the secondary choice left and primary action right. Translation refinement stays out of flow behind a translucent floating pencil; activating it reveals the white pill composer as a temporary overlay. Placeholder text remains darker than generic disabled text so examples stay readable.
 
 ### Navigation
 
