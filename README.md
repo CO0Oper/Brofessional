@@ -2,6 +2,8 @@
 
 A tiny two-way translator between candid language and LinkedIn-style professional prose, powered by `deepseek/deepseek-chat-v3.1` through OpenRouter.
 
+**[Open the live app](https://co0oper.github.io/linkedin-speak-chat/)**
+
 ## Local setup
 
 1. Install dependencies: `npm install`
