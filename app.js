@@ -94,7 +94,7 @@ el.message.addEventListener("keydown", (event) => {
   if ((event.ctrlKey || event.metaKey) && event.key === "Enter") translate();
 });
 
-el.send.addEventListener("click", translate);
+el.send.addEventListener("click", () => translate());
 
 el.swap.addEventListener("click", () => {
   direction = direction === "to-linkedin" ? "from-linkedin" : "to-linkedin";
