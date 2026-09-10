@@ -6,7 +6,7 @@
     <meta name="description" content="Turn direct thoughts into polished LinkedIn language with Brofessional." />
     <meta name="theme-color" content="#0a66c2" />
     <title>Brofessional — LinkedIn speak, translated</title>
-    <link rel="stylesheet" href="styles.css?v=7" />
+    <link rel="stylesheet" href="styles.css?v=8" />
   </head>
   <body>
     <!--
@@ -75,17 +75,20 @@
           <div class="panel-heading">
             <span id="output-label">LinkedIn Speak</span>
             <label class="sr-only" for="target-language">Translate into</label>
-            <select id="target-language" hidden>
-              <option value="English">English</option>
-              <option value="Simplified Chinese">简体中文</option>
-              <option value="Traditional Chinese">繁體中文</option>
-              <option value="Spanish">Español</option>
-              <option value="French">Français</option>
-              <option value="German">Deutsch</option>
-              <option value="Japanese">日本語</option>
-              <option value="Korean">한국어</option>
-              <option value="Portuguese">Português</option>
-            </select>
+            <span class="language-picker" id="language-picker" hidden>
+              <select id="target-language">
+                <option value="English">English</option>
+                <option value="Simplified Chinese">简体中文</option>
+                <option value="Traditional Chinese">繁體中文</option>
+                <option value="Spanish">Español</option>
+                <option value="French">Français</option>
+                <option value="German">Deutsch</option>
+                <option value="Japanese">日本語</option>
+                <option value="Korean">한국어</option>
+                <option value="Portuguese">Português</option>
+              </select>
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg>
+            </span>
             <button class="copy-button" id="copy-button" type="button" disabled>
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 8h11v11H8zM5 16H4V5h11v1" /></svg>
               <span>Copy</span>
@@ -120,6 +123,6 @@
       <p>Not affiliated with LinkedIn.</p>
     </footer>
 
-    <script src="app.js?v=7"></script>
+    <script src="app.js?v=8"></script>
   </body>
 </html>

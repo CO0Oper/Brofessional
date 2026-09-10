@@ -21,7 +21,9 @@ Translate the user's message (raw, blunt, often vulgar, usually Chinese) into Li
 - Warm, upbeat, slightly humblebragging. Gratitude, journeys, learnings, excitement.
 - 1-3 sentences. No hashtags, no emoji, no preamble.
 Output ONLY the translation.`;
-  if (tone === "real") return REAL_MEANING_TASK;
+  if (tone === "real") return targetLanguage === "English"
+    ? REAL_MEANING_TASK
+    : REAL_MEANING_TASK.replace("blunt, plain English", `blunt, natural ${targetLanguage}`);
   return `You are a translation engine that decodes "LinkedIn Speak" into direct, natural ${targetLanguage}.
 Preserve the actual meaning, including conflict, failure, quitting, or exhaustion that the corporate phrasing may soften.
 Write plainly and naturally in ${targetLanguage}. Use 1-3 sentences with no hashtags, emoji, preamble, commentary, or quotation marks.
@@ -76,7 +78,7 @@ export default {
         return Response.json({ error: "Conversation history is invalid." }, { status: 400, headers });
       }
       if (!["to-linkedin", "from-linkedin"].includes(direction) || !TARGET_LANGUAGES.has(targetLanguage) ||
-        !["normal", "real"].includes(tone) || (tone === "real" && (direction !== "from-linkedin" || targetLanguage !== "English"))) {
+        !["normal", "real"].includes(tone) || (tone === "real" && direction !== "from-linkedin")) {
         return Response.json({ error: "Translation settings are invalid." }, { status: 400, headers });
       }
 

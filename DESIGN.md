@@ -166,7 +166,7 @@ The palette is ink-and-paper neutral at its core, with a single professional blu
 
 The desktop shell is centered and capped at 1180px with a 40px total side inset. The working area is a two-column grid with equal panels and a 14px rail between them. The central direction control bridges that rail rather than occupying a third column.
 
-The page uses a compact proposition followed immediately by the working translator. Paper panels maintain a minimum working height of 430px, with stable heading and footer bands around flexible writing space. On mobile, the input/result split shifts to roughly 35/65 so short source text does not waste the viewport and long text remains internally scrollable. Panel content uses a 24px inset, and adjacent controls use compact 8–18px gaps.
+The page uses a compact proposition followed immediately by the working translator. Paper panels maintain a minimum working height of 430px, with stable heading and footer bands around flexible writing space. On mobile, natural-to-LinkedIn translation uses a source-light 35/65 split; reversing direction changes to a source-heavy 55/45 split because LinkedIn posts tend to be longer. Long text remains internally scrollable. Panel content uses a 24px inset, and adjacent controls use compact 8–18px gaps.
 
 At the 760px breakpoint, the equal columns become a single vertical stack locked to the dynamic viewport, the shell contracts to a 24px total side inset, and the center transfer signal rotates from horizontal travel to vertical travel. The promotional intro, examples, privacy note, and footer recede so the brand bar and complete translation task fit without page scrolling; long copy scrolls inside its own pane. Safe-area insets protect notches and home indicators, touch targets remain at least 44px, and short coarse-pointer landscape screens return to two columns.
 
@@ -213,7 +213,7 @@ The canonical container is a warm-paper panel with editorial ink, a 14px corner 
 
 ### Inputs / Fields
 
-The primary editor is borderless and transparent within the paper panel, using large content type, generous inset, blue caret, and no resize handle. The follow-up composer is a white pill with a one-pixel gray border and a circular blue send action. Placeholder text remains darker than generic disabled text so examples stay readable.
+The primary editor is borderless and transparent within the paper panel, using large content type, generous inset, blue caret, and no resize handle. The target language uses a compact soft-blue native select pill with a drawn chevron and a 44px mobile touch target. The follow-up composer is a white pill with a one-pixel gray border and a circular blue send action. Placeholder text remains darker than generic disabled text so examples stay readable.
 
 ### Navigation
 

@@ -54,11 +54,12 @@ assert.equal(badDirection.status, 400);
 assert.match(translationTask("to-linkedin", "English"), /Always output in English/);
 assert.match(translationTask("from-linkedin", "Simplified Chinese"), /natural Simplified Chinese/);
 assert.match(translationTask("from-linkedin", "English", "real"), /max 30 words/);
+assert.match(translationTask("from-linkedin", "French", "real"), /blunt, natural French/);
 
 const badTone = await worker.fetch(new Request("https://worker.test", {
   method: "POST",
   headers: { Origin: "https://example.com", "Content-Type": "application/json" },
-  body: JSON.stringify({ message: "hello", direction: "from-linkedin", targetLanguage: "French", tone: "real" }),
+  body: JSON.stringify({ message: "hello", direction: "from-linkedin", targetLanguage: "Klingon", tone: "real" }),
 }), env);
 
 assert.equal(badTone.status, 400);

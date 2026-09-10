@@ -17,6 +17,7 @@ const el = {
   clear: document.querySelector("#clear-button"),
   outputLabel: document.querySelector("#output-label"),
   inputLabel: document.querySelector("#input-label"),
+  languagePicker: document.querySelector("#language-picker"),
   targetLanguage: document.querySelector("#target-language"),
   history: document.querySelector("#history"),
   historyList: document.querySelector("#history-list"),
@@ -30,13 +31,6 @@ let turns = [];
 
 function selectedTone() {
   return el.toneInputs.find((input) => input.checked).value;
-}
-
-function syncTone() {
-  const realMeaning = direction === "from-linkedin" && selectedTone() === "real";
-  if (realMeaning) el.targetLanguage.value = "English";
-  el.targetLanguage.disabled = realMeaning;
-  el.targetLanguage.title = realMeaning ? "Real meaning is written in English" : "";
 }
 
 function renderHistoryList() {
@@ -93,7 +87,7 @@ function setLoading(loading) {
   el.send.disabled = loading;
   el.swap.disabled = loading;
   el.message.disabled = loading;
-  el.targetLanguage.disabled = loading || selectedTone() === "real";
+  el.targetLanguage.disabled = loading;
   el.toneInputs.forEach((input) => { input.disabled = loading; });
   el.followup.disabled = loading;
   el.followupForm.querySelector("button").disabled = loading;
@@ -178,20 +172,19 @@ el.swap.addEventListener("click", () => {
   el.inputLabel.textContent = direction === "to-linkedin" ? "Detect language" : "LinkedIn Speak";
   el.outputLabel.textContent = direction === "to-linkedin" ? "LinkedIn Speak" : "Natural language";
   el.outputLabel.hidden = direction === "from-linkedin";
-  el.targetLanguage.hidden = direction === "to-linkedin";
+  el.languagePicker.hidden = direction === "to-linkedin";
   el.tonePicker.hidden = direction === "to-linkedin";
   el.examples.hidden = direction === "from-linkedin";
   el.message.placeholder = direction === "to-linkedin"
     ? "My colleague keeps scheduling meetings that should have been emails…"
     : "I’m grateful for the opportunity to embrace a new chapter…";
   el.swap.classList.toggle("reversed", direction === "from-linkedin");
-  syncTone();
+  el.translator.classList.toggle("reversed", direction === "from-linkedin");
   resetOutput(true);
   el.message.focus();
 });
 
 el.toneInputs.forEach((input) => input.addEventListener("change", () => {
-  syncTone();
   resetOutput(true);
 }));
 

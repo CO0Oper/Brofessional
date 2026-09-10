@@ -157,16 +157,23 @@ main {
 #input-label { color: var(--ink); }
 #character-count { color: var(--muted); font-size: 0.75rem; font-variant-numeric: tabular-nums; }
 
+.language-picker { position: relative; display: inline-flex; align-items: center; }
+.language-picker[hidden] { display: none; }
+.language-picker svg { position: absolute; right: 12px; width: 15px; pointer-events: none; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 #target-language {
-  min-width: 0;
-  padding: 7px 28px 7px 10px;
+  width: clamp(8rem, 34vw, 10.5rem);
+  min-height: 40px;
+  appearance: none;
+  padding: 0 36px 0 14px;
   border: 1px solid #b7bbc0;
-  border-radius: 6px;
-  color: var(--ink);
-  background: white;
+  border-radius: 999px;
+  color: var(--blue-dark);
+  background: var(--blue-soft);
   font-size: 0.78rem;
   font-weight: 700;
+  cursor: pointer;
 }
+#target-language:hover { border-color: var(--blue); background: white; }
 
 textarea {
   width: 100%;
@@ -429,6 +436,7 @@ footer p { margin: 0; }
   .panel-footer { min-height: 56px; padding: 6px 10px; }
   .primary-button { min-height: 44px; }
   .translate-actions { width: 100%; gap: 6px; }
+  .tone-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; }
   .tone-options span { min-height: 40px; }
   .output { min-height: 0; padding: 12px 14px; font-size: 1rem; line-height: 1.4; }
   .turn.assistant p { font-size: 1rem; line-height: 1.4; }
@@ -446,11 +454,12 @@ footer p { margin: 0; }
   .swap-button { top: 50%; }
   .translator.transferring::after { animation-name: transfer-mobile; }
   .panel-footer p { display: none; }
+  .translator.reversed { grid-template-rows: minmax(0, 1.1fr) minmax(220px, 0.9fr); }
 }
 
 @media (max-height: 600px) and (pointer: coarse) {
   .masthead { min-height: 52px; }
-  .translator { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: 1fr; }
+  .translator, .translator.reversed { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: 1fr; }
   .translator::after { top: calc(50% - 3px); left: calc(50% - 35px); }
   .translator.transferring::after { animation-name: transfer; }
 }
