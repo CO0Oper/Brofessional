@@ -131,6 +131,7 @@ main {
 }
 
 .panel {
+  min-width: 0;
   min-height: 430px;
   display: flex;
   flex-direction: column;
@@ -395,25 +396,63 @@ footer {
 
 footer p { margin: 0; }
 
-@media (max-width: 760px) {
-  .masthead, main, footer { width: min(calc(100% - 28px), 600px); }
-  .masthead { padding: 20px 0; }
+@media (max-width: 760px), (max-height: 600px) and (pointer: coarse) {
+  html { height: 100%; overflow: hidden; }
+  body {
+    height: 100dvh;
+    min-height: 0;
+    overflow: hidden;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr);
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  }
+  .masthead, main { width: calc(100% - 24px); max-width: 600px; }
+  .masthead { min-height: 58px; padding: 10px 0; }
   .masthead > p { display: none; }
-  main { padding-top: 44px; }
-  .intro { margin-bottom: 24px; }
-  .intro h1 { font-size: clamp(2.1rem, 9vw, 3rem); }
-  .intro p { font-size: 0.94rem; line-height: 1.5; }
-  .translator { grid-template-columns: 1fr; gap: 14px; }
-  .panel { min-height: 350px; }
-  .output-panel { min-height: 310px; }
-  textarea { min-height: 170px; font-size: 1.16rem; }
-  .output { font-size: 1.16rem; }
+  .icon-button { width: 44px; height: 44px; }
+  main { min-width: 0; min-height: 0; padding: 10px 0; display: flex; flex-direction: column; overflow: hidden; }
+  .intro, .privacy-note, footer { display: none; }
+  .translator {
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    flex: 1;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .panel, .output-panel { width: 100%; max-width: 100%; min-height: 0; }
+  .panel-heading { min-height: 44px; padding: 0 14px; }
+  #target-language { min-height: 44px; }
+  textarea { min-height: 0; padding: 12px 14px; font-size: 1rem; line-height: 1.4; }
+  .examples { display: none; }
+  .panel-footer { min-height: 56px; padding: 6px 10px; }
+  .primary-button { min-height: 44px; }
+  .translate-actions { width: 100%; gap: 6px; }
+  .tone-options span { min-height: 40px; }
+  .output { min-height: 0; padding: 12px 14px; font-size: 1rem; line-height: 1.4; }
+  .turn.assistant p { font-size: 1rem; line-height: 1.4; }
+  .empty-state p { margin: 4px 0; font-size: 0.84rem; }
+  .quote-mark { height: 46px; font-size: 4rem; }
+  .copy-button { min-height: 44px; }
+  .history { margin: 0 12px 6px; }
+  .history summary { min-height: 40px; }
+  .history[open] { max-height: 44%; overflow-y: auto; }
+  .followup { margin: 0 10px 6px; }
+  .followup button { width: 44px; height: 44px; }
+  .status { min-height: 26px; padding: 0 12px 8px; font-size: 0.7rem; }
+  .swap-button { width: 50px; height: 50px; }
   .translator::after { top: calc(50% - 35px); left: calc(50% - 3px); }
   .swap-button { top: 50%; }
   .translator.transferring::after { animation-name: transfer-mobile; }
   .panel-footer p { display: none; }
-  .translate-actions { width: 100%; }
-  footer { gap: 20px; }
+}
+
+@media (max-height: 600px) and (pointer: coarse) {
+  .masthead { min-height: 52px; }
+  .translator { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: 1fr; }
+  .translator::after { top: calc(50% - 3px); left: calc(50% - 35px); }
+  .translator.transferring::after { animation-name: transfer; }
 }
 
 @keyframes transfer-mobile {

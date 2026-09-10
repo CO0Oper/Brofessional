@@ -168,7 +168,7 @@ The desktop shell is centered and capped at 1180px with a 40px total side inset.
 
 The page uses a compact proposition followed immediately by the working translator. Paper panels maintain a minimum working height of 430px, with stable heading and footer bands around flexible writing space. Panel content uses a 24px inset, and adjacent controls use compact 8–18px gaps.
 
-At the 760px breakpoint, the equal columns become a single vertical stack, the shell contracts to a 28px total side inset, and the center transfer signal rotates from horizontal travel to vertical travel. Panel heights and type scale reduce without changing task order. Utility instructions that depend on a physical keyboard are hidden on the narrow layout.
+At the 760px breakpoint, the equal columns become a single vertical stack locked to the dynamic viewport, the shell contracts to a 24px total side inset, and the center transfer signal rotates from horizontal travel to vertical travel. The promotional intro, examples, privacy note, and footer recede so the brand bar and complete translation task fit without page scrolling; long copy scrolls inside its own pane. Safe-area insets protect notches and home indicators, touch targets remain at least 44px, and short coarse-pointer landscape screens return to two columns.
 
 **The Paired Before Stacked Rule.** Preserve the source-and-destination relationship side by side whenever the viewport can support it; stack in the same reading order on narrow screens.
 
